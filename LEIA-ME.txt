@@ -1,0 +1,25 @@
+SISTEMA DE CONFIRMAÇÃO — ANIVERSÁRIO
+
+Arquivos
+- index.html: formulário que os convidados vão preencher.
+- Code.gs: integração que grava cada resposta no Google Sheets.
+
+CONFIGURAÇÃO
+1. Crie uma planilha no Google Sheets.
+2. Abra Extensões > Apps Script e cole o conteúdo de Code.gs.
+3. Salve e execute setup() uma vez, autorizando as permissões. Volte à planilha e confira a aba "Confirmações".
+4. No Apps Script, clique em Implantar > Nova implantação > Aplicativo da Web.
+   - Executar como: você.
+   - Quem tem acesso: qualquer pessoa.
+   - Clique em Implantar e copie a URL que termina em /exec.
+5. No index.html, substitua COLE_AQUI_A_URL_DO_APPS_SCRIPT pela URL copiada.
+6. Publique o index.html em um serviço de hospedagem estática (por exemplo, GitHub Pages ou Netlify) e envie o link aos convidados.
+
+COLUNAS REGISTRADAS
+Data/hora do envio, nome, WhatsApp, adultos, crianças, idades, presença e recado.
+
+IMPORTANTE
+- A planilha deve permanecer privada; compartilhe apenas o formulário com os convidados.
+- O formulário usa uma submissão simples para evitar problemas de CORS com Apps Script.
+- Como a submissão do navegador não consegue ler a resposta do Apps Script nesse modo, a mensagem de sucesso confirma que a solicitação foi enviada, mas não valida a gravação no servidor. Faça um teste antes de divulgar.
+- O formulário registra cada envio como uma nova linha. Se a mesma pessoa enviar duas vezes, aparecerão duas respostas; você pode manter a resposta mais recente manualmente.

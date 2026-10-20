@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Confirmação de presença — Minha primeira volta ao mundo</title>
+<style>
+:root{--navy:#123f66;--blue:#2d83b5;--gold:#f6c64a;--cream:#fffaf0}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--navy);background:linear-gradient(180deg,#e8f7ff,#fffaf0);min-height:100vh;padding:22px}
+.wrap{max-width:680px;margin:auto;background:#ffffffed;border:1px solid #cce8f8;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px #17486c1a}
+.hero{padding:30px 24px 20px;text-align:center;background:radial-gradient(circle at top,#fff 0,#e5f6ff 75%)}.planet{font-size:42px}.eyebrow{letter-spacing:2px;font-weight:800;font-size:13px}.hero h1{font-size:clamp(28px,6vw,44px);line-height:1.02;margin:8px 0;color:var(--navy)}.hero p{margin:10px auto 0;max-width:440px;line-height:1.5}.details{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px}.pill{background:#fff1c9;border-radius:30px;padding:8px 13px;font-size:14px;font-weight:700}
+form{padding:24px;display:grid;gap:16px}label{font-weight:750;display:block;margin-bottom:7px}input,select,textarea{width:100%;font:inherit;padding:12px 13px;border:1px solid #b8d5e7;border-radius:12px;background:white;color:#153e60}input:focus,select:focus,textarea:focus{outline:3px solid #bde8ff;border-color:var(--blue)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.radio-row{display:flex;gap:10px;flex-wrap:wrap}.radio{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid #c6dfed;border-radius:12px;flex:1;min-width:130px}.radio input{width:auto}.hint{font-size:13px;color:#4d6f87;margin-top:6px}.btn{border:0;border-radius:14px;background:var(--navy);color:white;font:inherit;font-weight:800;padding:14px 18px;cursor:pointer}.btn:disabled{opacity:.6;cursor:wait}.status{padding:0 24px 24px;font-weight:650;line-height:1.5}.footer{text-align:center;padding:0 24px 24px;font-size:12px;color:#628098}
+@media(max-width:520px){body{padding:10px}.grid{grid-template-columns:1fr}.hero{padding-top:24px}form{padding:18px}}
+</style></head>
+<body><main class="wrap">
+<header class="hero"><div class="planet">🚀 🌎 ✨</div><div class="eyebrow">VOCÊ FAZ PARTE DESSA JORNADA</div>
+<h1>Minha primeira<br>volta ao mundo</h1><p>Estamos preparando uma comemoração cheia de descobertas, aventuras e amor! Confirme sua presença para embarcar nessa festa com a gente.</p>
+<div class="details"><span class="pill">📅 14 de novembro</span><span class="pill">🕞 15h30</span><span class="pill">📍 Condomínio Vila Allegro</span></div></header>
+<form id="rsvp">
+<div><label for="nome">Nome completo *</label><input id="nome" name="nome" autocomplete="name" required maxlength="120" placeholder="Seu nome e sobrenome"></div>
+<div class="grid"><div><label for="telefone">WhatsApp (opcional)</label><input id="telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="(71) 99999-9999"></div>
+<div><label for="adultos">Quantidade de adultos *</label><select id="adultos" name="adultos" required><option value="1">1 adulto</option><option value="2" selected>2 adultos</option><option value="3">3 adultos</option><option value="4">4 adultos</option><option value="5">5 adultos</option><option value="6">6 adultos</option></select></div></div>
+<div class="grid"><div><label for="criancas">Quantidade de crianças *</label><select id="criancas" name="criancas" required><option value="0">Nenhuma</option><option value="1">1 criança</option><option value="2">2 crianças</option><option value="3">3 crianças</option><option value="4">4 crianças</option><option value="5">5 crianças</option></select></div>
+<div><label for="idade">Idade(s) das crianças (opcional)</label><input id="idade" name="idades" maxlength="80" placeholder="Ex.: 2 anos e 5 anos"></div></div>
+<div><label>Você vai conseguir vir? *</label><div class="radio-row"><label class="radio"><input type="radio" name="presenca" value="Sim" required> Sim, estaremos lá!</label><label class="radio"><input type="radio" name="presenca" value="Não"> Não conseguiremos</label></div></div>
+<div><label for="recado">Recadinho (opcional)</label><textarea id="recado" name="recado" rows="3" maxlength="500" placeholder="Deixe um carinho para o aniversariante..."></textarea></div>
+<button class="btn" id="submit" type="submit">Confirmar resposta ✨</button>
+</form><div id="status" class="status" role="status" aria-live="polite"></div>
+<div class="footer">Uma pequena confirmação ajuda muito na organização da nossa viagem! 💙</div>
+</main>
+<script>
+/* Depois de publicar o Google Apps Script como Aplicativo da Web, cole a URL abaixo. */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCVJ-LxSQyY0wBaoSldVb1pZS-KbveOwdgsaRuWrr4ltIt9HXiP2_UB8ifyxhLp3NG9A/exec";
+const form=document.getElementById('rsvp'),statusBox=document.getElementById('status'),button=document.getElementById('submit');
+form.addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(SCRIPT_URL.includes('COLE_AQUI')){statusBox.textContent='Este formulário ainda precisa ser conectado à planilha pelo organizador. Configure a URL do Apps Script no arquivo index.html.';return;}
+ button.disabled=true;button.textContent='Enviando...';statusBox.textContent='';
+ const data=Object.fromEntries(new FormData(form).entries());
+ data.enviadoEm=new Date().toISOString();
+ try{
+  await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+  statusBox.textContent='Obrigado! Sua resposta foi enviada. Se precisar corrigir alguma informação, fale com a família do aniversariante.';
+  form.reset();
+ }catch(err){statusBox.textContent='Não foi possível enviar agora. Confira sua conexão e tente novamente.';}
+ finally{button.disabled=false;button.textContent='Confirmar resposta ✨';}
+});
+</script></body></html>
